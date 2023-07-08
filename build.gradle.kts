@@ -68,7 +68,9 @@ graalvmNative {
   binaries {
     named("test") {
       buildArgs.addAll(listOf(
+        "--verbose",
         "--enable-preview",
+        "--native-image-info",
         "-H:+ReportExceptionStackTraces",
         "--trace-class-initialization=kotlin.annotation.AnnotationTarget,kotlin.annotation.AnnotationRetention",
       ))
