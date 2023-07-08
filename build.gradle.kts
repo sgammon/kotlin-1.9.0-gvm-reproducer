@@ -1,9 +1,9 @@
 import com.google.devtools.ksp.gradle.KspTaskJvm
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.0"
-    id("com.google.devtools.ksp") version "1.9.0-1.0.11"
+    id("org.jetbrains.kotlin.jvm") version "1.8.22"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.8.22"
+    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.0.0-M8"
 }
@@ -56,6 +56,16 @@ tasks {
     }
 }
 
+graalvmNative {
+  binaries {
+    named("test") {
+      buildArgs.addAll(listOf(
+        "--enable-preview",
+      ))
+    }
+  }
+}
+
 micronaut {
     testRuntime("junit5")
     processing {
@@ -67,8 +77,8 @@ micronaut {
 afterEvaluate {
   tasks.named<KspTaskJvm>("kspKotlin").configure {
     kotlinOptions {
-      apiVersion = "1.9"
-      languageVersion = "1.9"
+      apiVersion = "1.8"
+      languageVersion = "1.8"
       jvmTarget = "19"
     }
   }
