@@ -69,6 +69,8 @@ graalvmNative {
     named("test") {
       buildArgs.addAll(listOf(
         "--enable-preview",
+        "-H:+ReportExceptionStackTraces",
+        "--trace-class-initialization=kotlin.annotation.AnnotationTarget,kotlin.annotation.AnnotationRetention",
       ))
     }
   }
