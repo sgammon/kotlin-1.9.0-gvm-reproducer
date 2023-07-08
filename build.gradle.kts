@@ -1,9 +1,9 @@
 import com.google.devtools.ksp.gradle.KspTaskJvm
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.8.22"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.8.22"
-    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
+    id("org.jetbrains.kotlin.jvm") version "1.9.0"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.0"
+    id("com.google.devtools.ksp") version "1.9.0-1.0.11"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.0.0-M8"
 }
@@ -11,7 +11,11 @@ plugins {
 version = "0.1"
 group = "com.example"
 
-val kotlinVersion=project.properties.get("kotlinVersion")
+val kotlinVersion = project.properties.get("kotlinVersion")
+val kotlinVersionEnum = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_8
+val jvmTargetEnum = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_19
+val javaVersion = "19"
+val kotlinLangVersion = "1.8"
 
 repositories {
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/") {
@@ -46,12 +50,16 @@ java {
 tasks {
     compileKotlin {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_19)
+            apiVersion.set(kotlinVersionEnum)
+            languageVersion.set(kotlinVersionEnum)
+            jvmTarget.set(jvmTargetEnum)
         }
     }
     compileTestKotlin {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_19)
+            apiVersion.set(kotlinVersionEnum)
+            languageVersion.set(kotlinVersionEnum)
+            jvmTarget.set(jvmTargetEnum)
         }
     }
 }
@@ -77,10 +85,9 @@ micronaut {
 afterEvaluate {
   tasks.named<KspTaskJvm>("kspKotlin").configure {
     kotlinOptions {
-      apiVersion = "1.8"
-      languageVersion = "1.8"
-      jvmTarget = "19"
+      apiVersion = kotlinLangVersion
+      languageVersion = kotlinLangVersion
+      jvmTarget = javaVersion
     }
   }
 }
-
