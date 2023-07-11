@@ -72,7 +72,7 @@ graalvmNative {
         "--enable-preview",
         "--native-image-info",
         "-H:+ReportExceptionStackTraces",
-        "--instantiate-at-build-time=kotlin.coroutines.intrinsics.CoroutineSingletons",
+        "--initialize-at-build-time=kotlin.coroutines.intrinsics.CoroutineSingletons",
         "--trace-class-initialization=kotlin.annotation.AnnotationTarget,kotlin.annotation.AnnotationRetention",
       ))
     }
